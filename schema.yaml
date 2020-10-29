@@ -1,0 +1,2060 @@
+openapi: 3.0.3
+info:
+  title: Zaken Backend Gateway API
+  version: v1
+paths:
+  /api/v1/addresses/{bag_id}/permits/:
+    get:
+      operationId: addresses_permits_list
+      description: Get permit details based on bag id
+      parameters:
+      - in: path
+        name: bag_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - addresses
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DecosPermit'
+          description: ''
+  /api/v1/addresses/{bag_id}/permits/checkmarks/:
+    get:
+      operationId: addresses_permits_checkmarks_retrieve
+      description: Get permit checkmarks based on bag id
+      parameters:
+      - in: path
+        name: bag_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - addresses
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermitCheckmark'
+          description: ''
+  /api/v1/addresses/{bag_id}/residents/:
+    get:
+      operationId: addresses_residents_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: bag_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - addresses
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Residents'
+          description: ''
+  /api/v1/case-timeline-reactions/:
+    get:
+      operationId: case_timeline_reactions_list
+      description: ''
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - case-timeline-reactions
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCaseTimelineReactionList'
+          description: ''
+    post:
+      operationId: case_timeline_reactions_create
+      description: ''
+      tags:
+      - case-timeline-reactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineReaction'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineReaction'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineReaction'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineReaction'
+          description: ''
+  /api/v1/case-timeline-reactions/{id}/:
+    get:
+      operationId: case_timeline_reactions_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline reaction.
+        required: true
+      tags:
+      - case-timeline-reactions
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineReaction'
+          description: ''
+    put:
+      operationId: case_timeline_reactions_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline reaction.
+        required: true
+      tags:
+      - case-timeline-reactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineReaction'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineReaction'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineReaction'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineReaction'
+          description: ''
+    patch:
+      operationId: case_timeline_reactions_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline reaction.
+        required: true
+      tags:
+      - case-timeline-reactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimelineReaction'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimelineReaction'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimelineReaction'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineReaction'
+          description: ''
+    delete:
+      operationId: case_timeline_reactions_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline reaction.
+        required: true
+      tags:
+      - case-timeline-reactions
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/case-timeline-threads/:
+    get:
+      operationId: case_timeline_threads_list
+      description: ''
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: subject__case__identification
+        required: false
+        in: query
+        description: subject__case__identification
+        schema:
+          type: string
+      tags:
+      - case-timeline-threads
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCaseTimelineThreadList'
+          description: ''
+    post:
+      operationId: case_timeline_threads_create
+      description: ''
+      tags:
+      - case-timeline-threads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+  /api/v1/case-timeline-threads/{id}/:
+    get:
+      operationId: case_timeline_threads_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline thread.
+        required: true
+      tags:
+      - case-timeline-threads
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+    put:
+      operationId: case_timeline_threads_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline thread.
+        required: true
+      tags:
+      - case-timeline-threads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+    patch:
+      operationId: case_timeline_threads_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline thread.
+        required: true
+      tags:
+      - case-timeline-threads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimelineThread'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimelineThread'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimelineThread'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+    delete:
+      operationId: case_timeline_threads_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline thread.
+        required: true
+      tags:
+      - case-timeline-threads
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/case-timeline-threads/add-timeline-item/:
+    post:
+      operationId: case_timeline_threads_add_timeline_item_create
+      description: Add item to timeline of case (endpoint for automation)
+      tags:
+      - case-timeline-threads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+  /api/v1/case-timeline-threads/remove-timeline-item/:
+    post:
+      operationId: case_timeline_threads_remove_timeline_item_create
+      description: Update item from timeline of case (endpoint for automation)
+      parameters:
+      - in: query
+        name: thread_id
+        schema:
+          type: string
+        description: ID of thread
+        required: true
+      tags:
+      - case-timeline-threads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimelineThread'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+  /api/v1/case-timeline-threads/update-timeline-item/:
+    post:
+      operationId: case_timeline_threads_update_timeline_item_create
+      description: Update item from timeline of case (endpoint for automation)
+      tags:
+      - case-timeline-threads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimelineUpdate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimelineThread'
+          description: ''
+  /api/v1/case-timelines/:
+    get:
+      operationId: case_timelines_list
+      description: ''
+      parameters:
+      - name: case__identification
+        required: false
+        in: query
+        description: case__identification
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - case-timelines
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCaseTimelineList'
+          description: ''
+    post:
+      operationId: case_timelines_create
+      description: ''
+      tags:
+      - case-timelines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimeline'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimeline'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimeline'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimeline'
+          description: ''
+  /api/v1/case-timelines/{id}/:
+    get:
+      operationId: case_timelines_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline subject.
+        required: true
+      tags:
+      - case-timelines
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimeline'
+          description: ''
+    put:
+      operationId: case_timelines_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline subject.
+        required: true
+      tags:
+      - case-timelines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseTimeline'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CaseTimeline'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CaseTimeline'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimeline'
+          description: ''
+    patch:
+      operationId: case_timelines_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline subject.
+        required: true
+      tags:
+      - case-timelines
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimeline'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimeline'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCaseTimeline'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimeline'
+          description: ''
+    delete:
+      operationId: case_timelines_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case timeline subject.
+        required: true
+      tags:
+      - case-timelines
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/cases/:
+    get:
+      operationId: cases_list
+      description: ''
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: state_date
+        required: false
+        in: query
+        description: state_date
+        schema:
+          type: string
+      tags:
+      - cases
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCaseList'
+          description: ''
+    post:
+      operationId: cases_create
+      description: ''
+      tags:
+      - cases
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Case'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Case'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Case'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+          description: ''
+  /api/v1/cases/{id}/:
+    get:
+      operationId: cases_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+          description: ''
+    put:
+      operationId: cases_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Case'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Case'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Case'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+          description: ''
+    patch:
+      operationId: cases_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCase'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCase'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCase'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+          description: ''
+    delete:
+      operationId: cases_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/cases/{id}/debriefings/:
+    get:
+      operationId: cases_debriefings_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debriefing'
+          description: ''
+  /api/v1/cases/{id}/fines/:
+    get:
+      operationId: cases_fines_retrieve
+      description: Retrieves states for a case which allow fines, and retrieve the
+        corresponding fines
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FineList'
+          description: ''
+  /api/v1/cases/{id}/timeline/:
+    get:
+      operationId: cases_timeline_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this case.
+        required: true
+      tags:
+      - cases
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseTimeline'
+          description: ''
+  /api/v1/debriefings/:
+    post:
+      operationId: debriefings_create
+      description: The Debriefing Author is automatically linked to the currently
+        authenticated user
+      tags:
+      - debriefings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebriefingCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DebriefingCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DebriefingCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebriefingCreate'
+          description: ''
+  /api/v1/debriefings/{id}/:
+    get:
+      operationId: debriefings_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this debriefing.
+        required: true
+      tags:
+      - debriefings
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debriefing'
+          description: ''
+    put:
+      operationId: debriefings_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this debriefing.
+        required: true
+      tags:
+      - debriefings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Debriefing'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Debriefing'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Debriefing'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debriefing'
+          description: ''
+    patch:
+      operationId: debriefings_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this debriefing.
+        required: true
+      tags:
+      - debriefings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDebriefing'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDebriefing'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDebriefing'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debriefing'
+          description: ''
+    delete:
+      operationId: debriefings_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this debriefing.
+        required: true
+      tags:
+      - debriefings
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/is-authenticated/:
+    get:
+      operationId: is_authenticated_retrieve
+      description: ''
+      tags:
+      - is-authenticated
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/oidc-authenticate/:
+    post:
+      operationId: oidc_authenticate_create
+      description: ''
+      tags:
+      - oidc-authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OIDCAuthenticate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OIDCAuthenticate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OIDCAuthenticate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OIDCAuthenticate'
+          description: ''
+  /api/v1/push/:
+    post:
+      operationId: push_create
+      description: |-
+        Populates data through a push from Top, after which an "In Progress" state is created.
+        A push from Top occurs when a case is added to an itinerary.
+        After migrating from BWV to Zaken we can remove most of this push, and Top can do a simpler (and more generic) CREATE request for adding a state.
+      tags:
+      - push
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Push'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Push'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Push'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Push'
+          description: ''
+  /api/v1/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/testing-url/try_brk_api/:
+    post:
+      operationId: testing_url_try_brk_api_create
+      description: request url
+      tags:
+      - testing-url
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Test'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Test'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Test'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        bag_id:
+          type: string
+          maxLength: 255
+        id:
+          type: integer
+          readOnly: true
+        full_address:
+          type: string
+          readOnly: true
+        street_name:
+          type: string
+          readOnly: true
+        number:
+          type: integer
+          readOnly: true
+        suffix_letter:
+          type: string
+          readOnly: true
+        suffix:
+          type: string
+          readOnly: true
+        postal_code:
+          type: string
+          readOnly: true
+        lat:
+          type: number
+          format: float
+          readOnly: true
+        lng:
+          type: number
+          format: float
+          readOnly: true
+      required:
+      - bag_id
+      - full_address
+      - id
+      - lat
+      - lng
+      - number
+      - postal_code
+      - street_name
+      - suffix
+      - suffix_letter
+    Case:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        address:
+          $ref: '#/components/schemas/Address'
+        case_states:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseState'
+        current_state:
+          allOf:
+          - $ref: '#/components/schemas/CaseState'
+          readOnly: true
+        identification:
+          type: string
+          nullable: true
+          maxLength: 255
+        start_date:
+          type: string
+          format: date
+          nullable: true
+        end_date:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - address
+      - case_states
+      - current_state
+      - id
+    CaseState:
+      type: object
+      properties:
+        case:
+          type: integer
+        status_name:
+          type: string
+          readOnly: true
+        status:
+          type: integer
+        state_date:
+          type: string
+          format: date
+        users:
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+      - case
+      - state_date
+      - status
+      - status_name
+      - users
+    CaseTimeline:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        casetimelinethread_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimelineThread'
+          readOnly: true
+        subject:
+          type: string
+          maxLength: 255
+        is_done:
+          type: boolean
+        case:
+          type: integer
+      required:
+      - case
+      - casetimelinethread_set
+      - id
+      - subject
+    CaseTimelineReaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        comment:
+          type: string
+        date:
+          type: string
+          format: date
+          readOnly: true
+        timeline_item:
+          type: integer
+        author:
+          type: string
+          format: uuid
+      required:
+      - author
+      - comment
+      - date
+      - id
+      - timeline_item
+    CaseTimelineThread:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        casettimelinereaction_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimelineReaction'
+          readOnly: true
+        date:
+          type: string
+          format: date
+          readOnly: true
+        parameters:
+          type: object
+          additionalProperties: {}
+        notes:
+          type: string
+          nullable: true
+        subject:
+          type: integer
+        authors:
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+      - authors
+      - casettimelinereaction_set
+      - date
+      - id
+      - subject
+    Debriefing:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        case:
+          type: integer
+        author:
+          type: string
+          format: uuid
+        date_added:
+          type: string
+          format: date-time
+          readOnly: true
+        date_modified:
+          type: string
+          format: date-time
+          readOnly: true
+        violation:
+          $ref: '#/components/schemas/ViolationEnum'
+        feedback:
+          type: string
+          maxLength: 255
+      required:
+      - author
+      - case
+      - date_added
+      - date_modified
+      - feedback
+      - id
+    DebriefingCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        violation:
+          $ref: '#/components/schemas/ViolationEnum'
+        feedback:
+          type: string
+          maxLength: 255
+        case:
+          type: integer
+      required:
+      - case
+      - feedback
+      - id
+    DecosPermit:
+      type: object
+      properties:
+        permit_granted:
+          type: boolean
+          default: false
+        permit_type:
+          allOf:
+          - $ref: '#/components/schemas/PermitTypeEnum'
+          default: PERMIT_UNKNOWN
+        processed:
+          type: string
+          nullable: true
+        date_from:
+          type: string
+          format: date
+          nullable: true
+        date_to:
+          type: string
+          format: date
+          nullable: true
+        decos_join_web_url:
+          type: string
+          format: uri
+          default: https://decosdvl.amsterdam.nl
+          pattern: "^(?:[a-z0-9.+-]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+            d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\[[0-9a-f:.]+\\\
+            ]|([a-z¡-\uFFFF0-9](?:[a-z¡-\uFFFF0-9-]{0,61}[a-z¡-\uFFFF0-9])?(?:\\.(?!-)[a-z¡-\uFFFF\
+            0-9-]{1,63}(?<!-))*\\.(?!-)(?:[a-z¡-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+            .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+      required:
+      - date_from
+      - processed
+    Fine:
+      type: object
+      properties:
+        identificatienummer:
+          type: string
+          maxLength: 64
+        vorderingnummer:
+          type: integer
+        jaar:
+          type: integer
+          maximum: 9999
+        soort_vordering:
+          $ref: '#/components/schemas/SoortVorderingEnum'
+        omschrijving_soort_vordering:
+          type: string
+          maxLength: 50
+        indicatie_publiekrechtelijk:
+          $ref: '#/components/schemas/IndicatiePubliekrechtelijkEnum'
+        subjectnr:
+          type: integer
+          maximum: 9999999999
+          format: int64
+        opgemaaktenaam:
+          type: string
+          maxLength: 4000
+        subjectnr_opdrachtgever:
+          type: integer
+        opgemaaktenaam_opdrachtgever:
+          type: string
+          maxLength: 4000
+        runnr:
+          type: integer
+        omschrijving_run:
+          type: string
+          maxLength: 40
+        code_runwijze:
+          type: string
+          maxLength: 3
+        omschrijving_runwijze:
+          type: string
+          maxLength: 40
+        dagtekening:
+          type: string
+          format: date-time
+        vervaldatum:
+          type: string
+          format: date-time
+        indicatie_combi_dwangbevel:
+          $ref: '#/components/schemas/IndicatieCombiDwangbevelEnum'
+        notatekst:
+          type: string
+          nullable: true
+          maxLength: 2000
+        omschrijving:
+          type: string
+          nullable: true
+          maxLength: 100
+        invorderingstatus:
+          type: string
+        indicatie_bet_hern_bevel:
+          $ref: '#/components/schemas/IndicatieBetHernBevelEnum'
+        landcode:
+          type: string
+          nullable: true
+          maxLength: '3'
+        kenteken:
+          type: string
+          nullable: true
+        bonnummer:
+          type: string
+          nullable: true
+        bedrag_opgelegd:
+          type: string
+          format: decimal
+          maximum: 10000000000
+          minimum: -10000000000
+        bedrag_open_post_incl_rente:
+          type: string
+          format: decimal
+          maximum: 10000000000
+          minimum: -10000000000
+        totaalbedrag_open_kosten:
+          type: string
+          format: decimal
+          maximum: 10000000000
+          minimum: -10000000000
+        bedrag_open_rente:
+          type: string
+          format: decimal
+          maximum: 10000000000
+          minimum: -10000000000
+        reden_opschorting:
+          type: string
+          nullable: true
+          maxLength: 4000
+        omschrijving_1:
+          type: string
+          nullable: true
+          maxLength: 4000
+        omschrijving_2:
+          type: string
+          nullable: true
+          maxLength: 4000
+      required:
+      - bedrag_open_post_incl_rente
+      - bedrag_open_rente
+      - bedrag_opgelegd
+      - bonnummer
+      - code_runwijze
+      - dagtekening
+      - identificatienummer
+      - indicatie_bet_hern_bevel
+      - indicatie_combi_dwangbevel
+      - indicatie_publiekrechtelijk
+      - invorderingstatus
+      - jaar
+      - kenteken
+      - landcode
+      - notatekst
+      - omschrijving
+      - omschrijving_1
+      - omschrijving_2
+      - omschrijving_run
+      - omschrijving_runwijze
+      - omschrijving_soort_vordering
+      - opgemaaktenaam
+      - opgemaaktenaam_opdrachtgever
+      - reden_opschorting
+      - runnr
+      - soort_vordering
+      - subjectnr
+      - subjectnr_opdrachtgever
+      - totaalbedrag_open_kosten
+      - vervaldatum
+      - vorderingnummer
+    FineList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fine'
+      required:
+      - items
+    GeslachtsaanduidingEnum:
+      enum:
+      - M
+      - V
+      - X
+      type: string
+    HasBAndBPermitEnum:
+      enum:
+      - 'True'
+      - 'False'
+      - UNKNOWN
+      type: string
+    HasVacationRentalPermitEnum:
+      enum:
+      - 'True'
+      - 'False'
+      - UNKNOWN
+      type: string
+    IndicatieBetHernBevelEnum:
+      enum:
+      - J
+      - N
+      type: string
+    IndicatieCombiDwangbevelEnum:
+      enum:
+      - J
+      - N
+      - O
+      type: string
+    IndicatiePubliekrechtelijkEnum:
+      enum:
+      - J
+      - N
+      type: string
+    OIDCAuthenticate:
+      type: object
+      properties:
+        code:
+          type: string
+      required:
+      - code
+    PaginatedCaseList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Case'
+    PaginatedCaseTimelineList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimeline'
+    PaginatedCaseTimelineReactionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimelineReaction'
+    PaginatedCaseTimelineThreadList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimelineThread'
+    PatchedAddress:
+      type: object
+      properties:
+        bag_id:
+          type: string
+          maxLength: 255
+        id:
+          type: integer
+          readOnly: true
+        full_address:
+          type: string
+          readOnly: true
+        street_name:
+          type: string
+          readOnly: true
+        number:
+          type: integer
+          readOnly: true
+        suffix_letter:
+          type: string
+          readOnly: true
+        suffix:
+          type: string
+          readOnly: true
+        postal_code:
+          type: string
+          readOnly: true
+        lat:
+          type: number
+          format: float
+          readOnly: true
+        lng:
+          type: number
+          format: float
+          readOnly: true
+    PatchedCase:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        address:
+          $ref: '#/components/schemas/PatchedAddress'
+        case_states:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchedCaseState'
+        current_state:
+          allOf:
+          - $ref: '#/components/schemas/CaseState'
+          readOnly: true
+        identification:
+          type: string
+          nullable: true
+          maxLength: 255
+        start_date:
+          type: string
+          format: date
+          nullable: true
+        end_date:
+          type: string
+          format: date
+          nullable: true
+    PatchedCaseState:
+      type: object
+      properties:
+        case:
+          type: integer
+        status_name:
+          type: string
+          readOnly: true
+        status:
+          type: integer
+        state_date:
+          type: string
+          format: date
+        users:
+          type: array
+          items:
+            type: string
+            format: uuid
+    PatchedCaseTimeline:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        casetimelinethread_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimelineThread'
+          readOnly: true
+        subject:
+          type: string
+          maxLength: 255
+        is_done:
+          type: boolean
+        case:
+          type: integer
+    PatchedCaseTimelineReaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        comment:
+          type: string
+        date:
+          type: string
+          format: date
+          readOnly: true
+        timeline_item:
+          type: integer
+        author:
+          type: string
+          format: uuid
+    PatchedCaseTimelineThread:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        casettimelinereaction_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaseTimelineReaction'
+          readOnly: true
+        date:
+          type: string
+          format: date
+          readOnly: true
+        parameters:
+          type: object
+          additionalProperties: {}
+        notes:
+          type: string
+          nullable: true
+        subject:
+          type: integer
+        authors:
+          type: array
+          items:
+            type: string
+            format: uuid
+    PatchedDebriefing:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        case:
+          type: integer
+        author:
+          type: string
+          format: uuid
+        date_added:
+          type: string
+          format: date-time
+          readOnly: true
+        date_modified:
+          type: string
+          format: date-time
+          readOnly: true
+        violation:
+          $ref: '#/components/schemas/ViolationEnum'
+        feedback:
+          type: string
+          maxLength: 255
+    PermitCheckmark:
+      type: object
+      properties:
+        has_b_and_b_permit:
+          $ref: '#/components/schemas/HasBAndBPermitEnum'
+        has_vacation_rental_permit:
+          $ref: '#/components/schemas/HasVacationRentalPermitEnum'
+      required:
+      - has_b_and_b_permit
+      - has_vacation_rental_permit
+    PermitTypeEnum:
+      enum:
+      - BED_AND_BREAKFAST
+      - VAKANTIEVERHUUR
+      - PERMIT_UNKNOWN
+      type: string
+    Push:
+      type: object
+      properties:
+        identification:
+          type: string
+        case_type:
+          type: string
+        bag_id:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/PushState'
+      required:
+      - bag_id
+      - case_type
+      - identification
+      - start_date
+    PushState:
+      type: object
+      properties:
+        name:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+          nullable: true
+        gauge_date:
+          type: string
+          format: date
+          nullable: true
+        invoice_identification:
+          type: string
+      required:
+      - invoice_identification
+      - name
+      - start_date
+    Resident:
+      type: object
+      properties:
+        geboortedatum:
+          type: string
+          format: date-time
+        geslachtsaanduiding:
+          $ref: '#/components/schemas/GeslachtsaanduidingEnum'
+        geslachtsnaam:
+          type: string
+        voorletters:
+          type: string
+        voornamen:
+          type: string
+        voorvoegsel_geslachtsnaam:
+          type: string
+        datum_begin_relatie_verblijadres:
+          type: string
+          format: date-time
+      required:
+      - datum_begin_relatie_verblijadres
+      - geboortedatum
+      - geslachtsaanduiding
+      - geslachtsnaam
+      - voorletters
+      - voornamen
+    Residents:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resident'
+      required:
+      - results
+    SoortVorderingEnum:
+      enum:
+      - PBF
+      - PBN
+      - PRV
+      - SOC
+      type: string
+    Test:
+      type: object
+      properties:
+        request_url:
+          type: string
+      required:
+      - request_url
+    TimelineUpdate:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        subject:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+        authors:
+          type: string
+          nullable: true
+      required:
+      - authors
+      - notes
+      - parameters
+      - subject
+      - thread_id
+    ViolationEnum:
+      enum:
+      - 'NO'
+      - 'YES'
+      - ADDITIONAL_RESEARCH_REQUIRED
+      type: string
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Bearer
